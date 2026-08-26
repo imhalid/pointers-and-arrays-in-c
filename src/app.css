@@ -1,0 +1,909 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap');
+
+:root {
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+
+  /* Light Theme */
+  --bg-color: #f6f6f6;
+  --bg-content: #ffffff;
+  --text-color: #222222;
+  --text-muted: #666666;
+  --border-color: #eaeaea;
+  --highlight-bg: #ebebeb;
+  --highlight-color: #0066cc;
+  --code-bg: #f9f9f9;
+  --pre-bg: #f9f9f9;
+  --accent: #0066cc;
+
+  /* Code Tokens - Light Theme */
+  --token-comment: #708090;
+  --token-punctuation: #999999;
+  --token-number: #990055;
+  --token-string: #669900;
+  --token-keyword: #0077aa;
+  --token-function: #dd4a68;
+  --token-operator: #9a6e3a;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --bg-color: #111111;
+  --bg-content: #181818;
+  --text-color: #e0e0e0;
+  --text-muted: #888888;
+  --border-color: #2d2d2d;
+  --highlight-bg: #252525;
+  --highlight-color: #4da3ff;
+  --code-bg: #202020;
+  --pre-bg: #202020;
+  --accent: #4da3ff;
+
+  /* Code Tokens - Dark Theme */
+  --token-comment: #8e908c;
+  --token-punctuation: #cccccc;
+  --token-number: #ff7b72;
+  --token-string: #79c0ff;
+  --token-keyword: #ff7b72;
+  --token-function: #d2a8ff;
+  --token-operator: #f8f8f2;
+}
+
+[data-theme="sepia"] {
+  /* Premium warm Sepia Theme */
+  --bg-color: #e6dfcc;
+  --bg-content: #f4edd8;
+  --text-color: #3b2c1f;
+  --text-muted: #735e4d;
+  --border-color: #dcd2b8;
+  --highlight-bg: #e6dfcc;
+  --highlight-color: #8c4b00;
+  --code-bg: #ece6cf;
+  --pre-bg: #ece6cf;
+  --accent: #9e5300;
+
+  /* Code Tokens - Sepia Theme */
+  --token-comment: #735e4d;
+  --token-punctuation: #5f4c3d;
+  --token-number: #a62d00;
+  --token-string: #4c7c00;
+  --token-keyword: #8c4b00;
+  --token-function: #b33c00;
+  --token-operator: #5f4c3d;
+}
+
+[data-theme="forest"] {
+  /* Premium Dark Evergreen Theme */
+  --bg-color: #0d130e;
+  --bg-content: #152018;
+  --text-color: #e0eae2;
+  --text-muted: #829a8a;
+  --border-color: #1e2f23;
+  --highlight-bg: #223729;
+  --highlight-color: #52b788;
+  --code-bg: #1c2b20;
+  --pre-bg: #1c2b20;
+  --accent: #52b788;
+
+  /* Code Tokens - Forest Theme */
+  --token-comment: #738a7c;
+  --token-punctuation: #b2c7bc;
+  --token-number: #e76f51;
+  --token-string: #a3b899;
+  --token-keyword: #52b788;
+  --token-function: #85c7f2;
+  --token-operator: #eceff4;
+}
+
+[data-theme="nord"] {
+  /* Premium Nord Polar Night & Frost Theme */
+  --bg-color: #1d212a;
+  --bg-content: #242933;
+  --text-color: #eceff4;
+  --text-muted: #abb2bf;
+  --border-color: #3b4252;
+  --highlight-bg: #2e3440;
+  --highlight-color: #88c0d0;
+  --code-bg: #1e222b;
+  --pre-bg: #1e222b;
+  --accent: #88c0d0;
+
+  /* Code Tokens - Nord Theme */
+  --token-comment: #4c566a;
+  --token-punctuation: #eceff4;
+  --token-number: #b48ead;
+  --token-string: #a3be8c;
+  --token-keyword: #81a1c1;
+  --token-function: #88c0d0;
+  --token-operator: #8fbcbb;
+}
+
+[data-theme="solarized"] {
+  /* Clean Solarized Light Theme */
+  --bg-color: #eee8d5;
+  --bg-content: #fdf6e3;
+  --text-color: #586e75;
+  --text-muted: #93a1a1;
+  --border-color: #decdaf;
+  --highlight-bg: #eee8d5;
+  --highlight-color: #b58900;
+  --code-bg: #f5eedc;
+  --pre-bg: #f5eedc;
+  --accent: #268bd2;
+
+  /* Code Tokens - Solarized Theme */
+  --token-comment: #93a1a1;
+  --token-punctuation: #586e75;
+  --token-number: #d33682;
+  --token-string: #859900;
+  --token-keyword: #268bd2;
+  --token-function: #b58900;
+  --token-operator: #93a1a1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden; /* App takes 100vh and handles its own scrolling */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Typographic fonts */
+.font-sans {
+  font-family: var(--font-sans);
+}
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Typography styles inside Reader */
+.prose {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  view-transition-name: reader-article;
+}
+
+.prose.font-sans {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.prose.font-mono {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.3;
+  margin-top: 2.2em;
+  margin-bottom: 0.8em;
+  letter-spacing: -0.01em;
+}
+
+.prose h1 {
+  font-size: 2.2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4em;
+  margin-top: 1em;
+}
+
+.prose h2 {
+  font-size: 1.6rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3em;
+}
+
+.prose h3 {
+  font-size: 1.3rem;
+}
+
+.prose h4 {
+  font-size: 1.1rem;
+}
+
+.prose p {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  text-align: justify;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.15s ease;
+}
+
+.prose a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.prose ul, .prose ol {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  margin: 0 0 1.5em 0;
+  padding: 0.5em 1.2em;
+  border-left: 3px solid var(--accent);
+  color: var(--text-muted);
+  background-color: var(--code-bg);
+  font-style: italic;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 2.5em 0;
+}
+
+/* Code Styles */
+.prose code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 0;
+  font-size: 0.88em;
+}
+
+.prose pre {
+  font-family: var(--font-mono);
+  background-color: var(--pre-bg);
+  padding: 1.2rem;
+  border-radius: 0;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  border: 1px solid var(--border-color);
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: inherit;
+  display: block;
+}
+
+/* Table styling inside prose */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9em;
+  font-family: var(--font-sans);
+}
+
+.prose th,
+.prose td {
+  padding: 5px 5px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.prose th:first-child,
+.prose td:first-child {
+  border-left: 1px solid var(--border-color);
+}
+
+.prose th {
+  background-color: var(--highlight-bg);
+  color: var(--text-color);
+  font-weight: 600;
+  border-top: 1px solid var(--border-color);
+}
+
+.prose tr:nth-child(even) {
+  background-color: var(--code-bg);
+}
+
+/* Focus mode active styling */
+.focus-active .prose p,
+.focus-active .prose li,
+.focus-active .prose pre,
+.focus-active .prose h1,
+.focus-active .prose h2,
+.focus-active .prose h3,
+.focus-active .prose h4,
+.focus-active .prose hr,
+.focus-active .prose blockquote {
+  opacity: 0.25;
+  filter: blur(0.5px);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.focus-active .prose p:hover,
+.focus-active .prose li:hover,
+.focus-active .prose pre:hover,
+.focus-active .prose h1:hover,
+.focus-active .prose h2:hover,
+.focus-active .prose h3:hover,
+.focus-active .prose h4:hover,
+.focus-active .prose blockquote:hover {
+  opacity: 1;
+  filter: none;
+}
+
+/* Modern CSS Scroll-Driven Focus Mode (Middle 70% highlighted, top 15% / bottom 15% faded) */
+@supports (animation-timeline: view()) {
+  @keyframes focus-scroll-fade {
+    0% {
+      opacity: 0.25;
+      filter: blur(0.5px);
+    }
+    15% {
+      opacity: 0.25;
+      filter: blur(0.5px);
+    }
+    30% {
+      opacity: 1;
+      filter: none;
+    }
+    70% {
+      opacity: 1;
+      filter: none;
+    }
+    85% {
+      opacity: 0.25;
+      filter: blur(0.5px);
+    }
+    100% {
+      opacity: 0.25;
+      filter: blur(0.5px);
+    }
+  }
+
+  .focus-active .prose p,
+  .focus-active .prose li,
+  .focus-active .prose pre,
+  .focus-active .prose h1,
+  .focus-active .prose h2,
+  .focus-active .prose h3,
+  .focus-active .prose h4,
+  .focus-active .prose hr,
+  .focus-active .prose blockquote {
+    animation: focus-scroll-fade linear both;
+    animation-timeline: view();
+    animation-range: cover;
+    transition: none; /* Disable standard transitions to prevent conflicts */
+  }
+
+  /* When scrolled to the very top, keep the first few items fully visible */
+  .focus-active.scroll-at-top .prose > *:nth-child(-n+4) {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  /* When scrolled to the very bottom, keep the last few items fully visible */
+  .focus-active.scroll-at-bottom .prose > *:nth-last-child(-n+3) {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+
+/* Prism Token Syntax Highlighting using CSS Variables */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--token-comment);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--token-punctuation);
+  opacity: 0.85;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--token-number);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--token-string);
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+  color: var(--token-operator);
+}
+
+.token.keyword {
+  color: var(--token-keyword);
+  font-weight: bold;
+}
+
+.token.function {
+  color: var(--token-function);
+  font-weight: 600;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--token-number);
+}
+
+/* Reader App Layout & Component CSS */
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+}
+
+/* Sidebar Styling */
+.sidebar {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 360px;
+  min-width: 360px;
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-right: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  z-index: 100;
+  opacity: 1;
+  transform: scale(1);
+  padding: 1.5rem 0.5rem;
+}
+
+.sidebar.closed {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+/* Responsive adjustments for mobile/tablet */
+@media (max-width: 1024px) {
+  .sidebar {
+    background-color: var(--bg-content);
+    border-right: 1px solid var(--border-color);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.sidebar-toc {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  background: transparent;
+  border: none !important;
+  color: var(--text-color);
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: 100%;
+  outline: none !important;
+  box-shadow: none !important;
+  
+  /* Default opacity when open */
+  opacity: 0.6;
+  
+  /* Color and opacity transitions for hover and active changes */
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+.toc-item:focus,
+.toc-item:focus-visible,
+.toc-item:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.toc-item.active {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.toc-item:hover {
+  color: var(--accent);
+  opacity: 1 !important;
+}
+
+/* Main Content Styling */
+.main-content {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top Header Styling */
+.top-header {
+  position: relative;
+  height: 42px;
+  min-height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: var(--bg-content);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 110;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+
+
+/* Reader Container Styling */
+.reader-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem 1.5rem 4rem 1.5rem;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+}
+
+.reader-inner {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Icon Buttons */
+.icon-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.icon-btn:hover {
+  background-color: var(--highlight-bg);
+  border-color: var(--border-color);
+}
+
+.icon-btn.active {
+  color: var(--accent);
+  background-color: var(--highlight-bg);
+  border-color: var(--border-color);
+}
+
+/* Settings Popover Styling */
+.settings-popover {
+  position: absolute;
+  top: 41px;
+  right: 0;
+  width: 280px;
+  background-color: var(--bg-content);
+  border-left: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  border-right: none;
+  border-top: none;
+  border-radius: 0;
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 1000;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.settings-section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.settings-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.settings-btn {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.settings-btn.active {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 0.15rem;
+}
+
+.font-size-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+
+.font-size-btn:hover {
+  background-color: var(--highlight-bg);
+}
+
+.font-size-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-label-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.toggle-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.toggle-checkbox {
+  width: 34px;
+  height: 18px;
+  appearance: none;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toggle-checkbox:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle-checkbox::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  top: 2px;
+  left: 2px;
+  background-color: var(--text-muted);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.toggle-checkbox:checked::before {
+  transform: translateX(16px);
+  background-color: #ffffff;
+}
+
+/* Navigation Buttons at Chapter Ends */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  gap: 1rem;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--bg-content);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  max-width: 50%;
+}
+
+.nav-btn:hover {
+  border-color: var(--accent);
+  background-color: var(--highlight-bg);
+}
+
+.nav-btn-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.nav-btn-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* Bottom Status Bar Styling */
+.bottom-status-bar {
+  height: 32px;
+  min-height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  background-color: var(--bg-content);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  z-index: 50;
+}
+
+.status-right {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Scroll to Top Floating Button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 4rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  background-color: var(--bg-content);
+  border: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-top-btn:hover {
+  background-color: var(--highlight-bg);
+}
+
+.scroll-top-btn .progress-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+}
+
+.scroll-top-btn .progress-bar-rect {
+  transition: stroke-dashoffset 0.1s ease;
+}
+
+
